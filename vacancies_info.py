@@ -52,6 +52,7 @@ def show_table(title, wages):
 
 
 def headhunter_vacancies_info():
+    title = 'HeadHunter Moscow'    
     url_all = 'https://api.hh.ru/vacancies'
     professions = ['JavaScript',
                    'Java',
@@ -93,12 +94,12 @@ def headhunter_vacancies_info():
         profession_info.append(wages_average)
         full_info.append(profession_info)
         profession_info = []
-        title = 'HeadHunter Moscow'
     show_table(title, full_info)
     return None
 
 
 def superjob_vacancies_info():
+    title = 'SuperJob Moscow'
     url = 'https://api.superjob.ru/2.0/vacancies'
     headers = {'X-Api-App-Id': 'v3.r.137397509.4016b29888ab574f2cb1f31d74e0ddb333fade59.4c5446fd495394f76992b88010cc84cbc0cdc91e'}
     professions = ['JavaScript',
@@ -116,6 +117,7 @@ def superjob_vacancies_info():
     full_info = []
     profession_info = []
     for profession in professions:
+        vacancies = 0
         vacancies_fit = 0
         page = 0
         wages_sum = 0
@@ -126,6 +128,7 @@ def superjob_vacancies_info():
             page_response.raise_for_status()
             page_payload = page_response.json()
             more = page_payload['more']
+            vacancies = page_payload['total']
             page += 1
             for item in page_payload['objects']:
                 if predict_rub_salary(item):
@@ -136,12 +139,11 @@ def superjob_vacancies_info():
         except ZeroDivisionError:
             wages_average = None
         profession_info.append(profession)
-        profession_info.append(page_payload['total'])
+        profession_info.append(vacancies)
         profession_info.append(vacancies_fit)
         profession_info.append(wages_average)
         full_info.append(profession_info)
         profession_info = []
-    title = 'SuperJob Moscow'
     show_table(title, full_info)
 
 
