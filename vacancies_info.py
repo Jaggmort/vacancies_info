@@ -19,10 +19,15 @@ def main():
                    'Scala',
                    'Swift'
                    ]
+    headhunter_title = 'HeadHunter Moscow'
+    superjob_title = 'SuperJob Moscow'
     print()
-    get_superjob_vacancies(superjob_api_key, professions)
+    superjob_vacancies = get_superjob_vacancies(superjob_api_key, professions)
+    show_table(superjob_title, superjob_vacancies)
     print()
     get_headhunter_vacancies(professions)
+    headhunter_vacancies = get_superjob_vacancies(professions)
+    show_table(headhunter_title, headhunter_vacancies)    
 
 
 def predict_rur_salary(salary):
@@ -69,7 +74,6 @@ def show_table(title, wages):
 
 
 def get_headhunter_vacancies(professions):
-    title = 'HeadHunter Moscow'
     url = 'https://api.hh.ru/vacancies'
     overall_result = []
     for profession in professions:
@@ -100,12 +104,10 @@ def get_headhunter_vacancies(professions):
             average_wages
         ]
         overall_result.append(profession_result)
-    show_table(title, overall_result)
-    return None
+    return overall_result
 
 
 def get_superjob_vacancies(api_key, professions):
-    title = 'SuperJob Moscow'
     url = 'https://api.superjob.ru/2.0/vacancies'
     headers = {'X-Api-App-Id': api_key}
     overall_result = []
@@ -140,7 +142,7 @@ def get_superjob_vacancies(api_key, professions):
             average_wages
         ]
         overall_result.append(profession_result)
-    show_table(title, overall_result)
+    return overall_result
 
 
 if __name__ == '__main__':
