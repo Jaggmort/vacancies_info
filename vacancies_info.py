@@ -123,7 +123,7 @@ def superjob_vacancies_info():
         wages_sum = 0
         more = True
         while more:
-            params = {'town': 4, 'keyword': f'Программист {profession}', 'page': page}
+            params = {'town': 4, 'keyword': profession, 'page': page}
             page_response = requests.get(url, headers=headers, params=params)
             page_response.raise_for_status()
             page_payload = page_response.json()
