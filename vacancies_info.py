@@ -75,37 +75,37 @@ def show_table(title, wages):
 
 def get_headhunter_vacancies(professions):
     title = 'HeadHunter Moscow'    
-    url_all = 'https://api.hh.ru/vacancies'
-    full_info = []
-    profession_info = []
+    url = 'https://api.hh.ru/vacancies'
+    overall_result = []
+    profession_result = []
     for profession in professions:
         page = 0
         pages_number = 1
-        vacancies_fit = 0
+        suitable_vacancies = 0
         wages_sum = 0
         while page < pages_number:
             params = {'text': f'Программист {profession}', 'page': page}
-            page_response = requests.get(url_all, params)
+            page_response = requests.get(url, params)
             page_response.raise_for_status()
             page_payload = page_response.json()
             pages_number = page_payload['pages']
             page += 1
             for item in page_payload['items']:
                 if predict_rur_salary(item['salary']):
-                    vacancies_fit += 1
+                    suitable_vacancies += 1
                     wages_sum += predict_rur_salary(item['salary'])
         try:
-            wages_average = int(wages_sum/vacancies_fit)
+            wages_average = int(wages_sum/suitable_vacancies)
         except ZeroDivisionError:
             wages_average = None
-        profession_info.append(profession)
-        profession_info.append(page_payload['found'])
-        profession_info.append(vacancies_fit)
-        profession_info.append(wages_average)
-        full_info.append(profession_info)
-        profession_info = []
+        profession_result.append(profession)
+        profession_result.append(page_payload['found'])
+        profession_result.append(suitable_vacancies)
+        profession_result.append(wages_average)
+        overall_result.append(profession_result)
+        profession_result = []
     print()
-    show_table(title, full_info)
+    show_table(title, overall_result)
     return None
 
 
@@ -113,11 +113,11 @@ def get_superjob_vacancies(api_key, professions):
     title = 'SuperJob Moscow'
     url = 'https://api.superjob.ru/2.0/vacancies'
     headers = {'X-Api-App-Id': api_key}
-    full_info = []
-    profession_info = []
+    overall_result = []
+    profession_result = []
     for profession in professions:
         vacancies = 0
-        vacancies_fit = 0
+        suitable_vacancies = 0
         page = 0
         wages_sum = 0
         more = True
@@ -131,20 +131,20 @@ def get_superjob_vacancies(api_key, professions):
             page += 1
             for item in page_payload['objects']:
                 if predict_rub_salary(item):
-                    vacancies_fit += 1
+                    suitable_vacancies += 1
                     wages_sum += predict_rub_salary(item)
         try:
-            wages_average = int(wages_sum/vacancies_fit)
+            wages_average = int(wages_sum/suitable_vacancies)
         except ZeroDivisionError:
             wages_average = None
-        profession_info.append(profession)
-        profession_info.append(vacancies)
-        profession_info.append(vacancies_fit)
-        profession_info.append(wages_average)
-        full_info.append(profession_info)
-        profession_info = []
+        profession_result.append(profession)
+        profession_result.append(vacancies)
+        profession_result.append(suitable_vacancies)
+        profession_result.append(wages_average)
+        overall_result.append(profession_result)
+        profession_result = []
     print()
-    show_table(title, full_info)
+    show_table(title, overall_result)
 
 
 if __name__ == '__main__':
