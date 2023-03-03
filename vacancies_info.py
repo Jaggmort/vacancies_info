@@ -8,8 +8,20 @@ from terminaltables import AsciiTable
 def main():
     load_dotenv()
     superjob_api_key = os.environ.get('SUPERJOB_KEY')
-    get_superjob_vacancies(superjob_api_key)
-    get_headhunter_vacancies()
+    professions = ['JavaScript',
+                   'Java',
+                   'Python',
+                   'Ruby',
+                   'PHP',
+                   'C++',
+                   'C#',
+                   'Go',
+                   'Objective-C',
+                   'Scala',
+                   'Swift'
+                   ]    
+    get_superjob_vacancies(superjob_api_key, professions)
+    get_headhunter_vacancies(professions)
 
 
 def predict_rur_salary(salary):
@@ -61,21 +73,9 @@ def show_table(title, wages):
     return None
 
 
-def get_headhunter_vacancies():
+def get_headhunter_vacancies(professions):
     title = 'HeadHunter Moscow'    
     url_all = 'https://api.hh.ru/vacancies'
-    professions = ['JavaScript',
-                   'Java',
-                   'Python',
-                   'Ruby',
-                   'PHP',
-                   'C++',
-                   'C#',
-                   'Go',
-                   'Objective-C',
-                   'Scala',
-                   'Swift'
-                   ]
     full_info = []
     profession_info = []
     for profession in professions:
@@ -109,22 +109,10 @@ def get_headhunter_vacancies():
     return None
 
 
-def get_superjob_vacancies(api_key):
+def get_superjob_vacancies(api_key, professions):
     title = 'SuperJob Moscow'
     url = 'https://api.superjob.ru/2.0/vacancies'
     headers = {'X-Api-App-Id': api_key}
-    professions = ['JavaScript',
-                   'Java',
-                   'Python',
-                   'Ruby',
-                   'PHP',
-                   'C++',
-                   'C#',
-                   'Go',
-                   'Objective-C',
-                   'Scala',
-                   'Swift'
-                   ]
     full_info = []
     profession_info = []
     for profession in professions:
