@@ -115,6 +115,7 @@ def get_superjob_vacancies(api_key, professions):
     headers = {'X-Api-App-Id': api_key}
     overall_result = []
     profession_result = []
+    moscow_id = 4
     for profession in professions:
         vacancies = 0
         suitable_vacancies = 0
@@ -122,7 +123,7 @@ def get_superjob_vacancies(api_key, professions):
         wages_sum = 0
         more = True
         while more:
-            params = {'town': 4, 'keyword': profession, 'page': page}
+            params = {'town': moscow_id, 'keyword': profession, 'page': page}
             page_response = requests.get(url, headers=headers, params=params)
             page_response.raise_for_status()
             page_payload = page_response.json()
