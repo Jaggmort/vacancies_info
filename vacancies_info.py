@@ -90,10 +90,10 @@ def get_headhunter_vacancies(professions):
             page_payload = page_response.json()
             pages_number = page_payload['pages']
             page += 1
-            for item in page_payload['items']:
-                if predict_rur_salary(item['salary']):
+            for vacancy in page_payload['items']:
+                if predict_rur_salary(vacancy['salary']):
                     suitable_vacancies += 1
-                    wages_sum += predict_rur_salary(item['salary'])
+                    wages_sum += predict_rur_salary(vacancy['salary'])
         try:
             wages_average = int(wages_sum/suitable_vacancies)
         except ZeroDivisionError:
@@ -130,10 +130,10 @@ def get_superjob_vacancies(api_key, professions):
             more = page_payload['more']
             vacancies = page_payload['total']
             page += 1
-            for item in page_payload['objects']:
-                if predict_rub_salary(item):
+            for vacancy in page_payload['objects']:
+                if predict_rub_salary(vacancy):
                     suitable_vacancies += 1
-                    wages_sum += predict_rub_salary(item)
+                    wages_sum += predict_rub_salary(vacancy)
         try:
             wages_average = int(wages_sum/suitable_vacancies)
         except ZeroDivisionError:
