@@ -27,36 +27,30 @@ def main():
     print()
     get_headhunter_vacancies(professions)
     headhunter_vacancies = get_superjob_vacancies(professions)
-    show_table(headhunter_title, headhunter_vacancies)    
+    show_table(headhunter_title, headhunter_vacancies)
 
 
-def predict_rur_salary(salary):
+def calculate_wage(payment_from, payment_to):
     wage = None
-    if salary:
-        if salary['currency'] == 'RUR':
-            if salary['from']:
-                if salary['to']:
-                    wage = int((salary['from'] + salary['to'])/2)
-                else:
-                    wage = int(salary['from']*1.2)
-            else:
-                if salary['to']:
-                    wage = int(salary['to']*0.8)
+    if payment_from:
+        if payment_to:
+            wage = int(payment_from + payment_to)/2
+        else:
+            wage = int(payment_from*1.2)
+    else:
+        if payment_to:
+            wage = int(payment_to*0.8)
     return wage
 
 
-def predict_rub_salary(salary):
+def predict_salary(salary):
     wage = None
     if salary:
         if salary['currency'] == 'rub':
-            if salary['payment_from']:
-                if salary['payment_to']:
-                    wage = int((salary['payment_from'] + salary['payment_to'])/2)
-                else:
-                    wage = int(salary['payment_from']*1.2)
-            else:
-                if salary['payment_to']:
-                    wage = int(salary['payment_to']*0.8)
+            wage = calculate_wage(salary['payment_from'], salary['payment_to'])
+    if salary:
+        if salary['currency'] == 'RUR':
+            wage = calculate_wage(salary['from'], salary['to'])
     return wage
 
 
@@ -89,10 +83,10 @@ def get_headhunter_vacancies(professions):
             pages_number = page_payload['pages']
             page += 1
             for vacancy in page_payload['items']:
-                predict_salary = predict_rur_salary(vacancy['salary'])
-                if predict_salary:
+                salary = predict_salary(vacancy['salary'])
+                if salary:
                     suitable_vacancies += 1
-                    wages_sum += predict_salary
+                    wages_sum += salary
         try:
             average_wages = int(wages_sum/suitable_vacancies)
         except ZeroDivisionError:
@@ -127,10 +121,10 @@ def get_superjob_vacancies(api_key, professions):
             vacancies = page_payload['total']
             page += 1
             for vacancy in page_payload['objects']:
-                predict_salary = predict_rub_salary(vacancy)
-                if predict_salary:
+                salary = predict_salary(vacancy)
+                if salary:
                     suitable_vacancies += 1
-                    wages_sum += predict_salary
+                    wages_sum += salary
         try:
             average_wages = int(wages_sum/suitable_vacancies)
         except ZeroDivisionError:
