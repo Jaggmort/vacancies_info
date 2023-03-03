@@ -25,38 +25,36 @@ def main():
 
 
 def predict_rur_salary(salary):
-    if salary is None:
-        return None
     wage = None
-    if salary['currency'] == 'RUR':
-        if salary['from']:
-            if salary['to']:
-                wage = int((salary['from'] + salary['to'])/2)
+    if salary:
+        if salary['currency'] == 'RUR':
+            if salary['from']:
+                if salary['to']:
+                    wage = int((salary['from'] + salary['to'])/2)
+                else:
+                    wage = int(salary['from']*1.2)
             else:
-                wage = int(salary['from']*1.2)
-        else:
-            if salary['to']:
-                wage = int(salary['to']*0.8)
-            else:
-                wage = None
+                if salary['to']:
+                    wage = int(salary['to']*0.8)
+                else:
+                    wage = None
     return wage
 
 
 def predict_rub_salary(salary):
-    if salary is None:
-        return None
     wage = None
-    if salary['currency'] == 'rub':
-        if salary['payment_from']:
-            if salary['payment_to']:
-                wage = int((salary['payment_from'] + salary['payment_to'])/2)
+    if salary:
+        if salary['currency'] == 'rub':
+            if salary['payment_from']:
+                if salary['payment_to']:
+                    wage = int((salary['payment_from'] + salary['payment_to'])/2)
+                else:
+                    wage = int(salary['payment_from']*1.2)
             else:
-                wage = int(salary['payment_from']*1.2)
-        else:
-            if salary['payment_to']:
-                wage = int(salary['payment_to']*0.8)
-            else:
-                wage = None
+                if salary['payment_to']:
+                    wage = int(salary['payment_to']*0.8)
+                else:
+                    wage = None
     return wage
 
 
