@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from terminaltables import AsciiTable
 
 
-
 def main():
     load_dotenv()
     superjob_api_key = os.environ.get('SUPERJOB_KEY')
@@ -19,7 +18,7 @@ def main():
                    'Objective-C',
                    'Scala',
                    'Swift'
-                   ]    
+                   ]
     get_superjob_vacancies(superjob_api_key, professions)
     get_headhunter_vacancies(professions)
 
@@ -68,10 +67,9 @@ def show_table(title, wages):
 
 
 def get_headhunter_vacancies(professions):
-    title = 'HeadHunter Moscow'    
+    title = 'HeadHunter Moscow'
     url = 'https://api.hh.ru/vacancies'
     overall_result = []
-    profession_result = []
     for profession in professions:
         page = 0
         pages_number = 1
@@ -93,12 +91,13 @@ def get_headhunter_vacancies(professions):
             average_wages = int(wages_sum/suitable_vacancies)
         except ZeroDivisionError:
             average_wages = None
-        profession_result.append(profession)
-        profession_result.append(page_payload['found'])
-        profession_result.append(suitable_vacancies)
-        profession_result.append(average_wages)
+        profession_result = [
+            profession,
+            page_payload['found'],
+            suitable_vacancies,
+            average_wages
+        ]
         overall_result.append(profession_result)
-        profession_result = []
     print()
     show_table(title, overall_result)
     return None
@@ -109,7 +108,6 @@ def get_superjob_vacancies(api_key, professions):
     url = 'https://api.superjob.ru/2.0/vacancies'
     headers = {'X-Api-App-Id': api_key}
     overall_result = []
-    profession_result = []
     moscow_id = 4
     for profession in professions:
         vacancies = 0
@@ -134,12 +132,13 @@ def get_superjob_vacancies(api_key, professions):
             average_wages = int(wages_sum/suitable_vacancies)
         except ZeroDivisionError:
             average_wages = None
-        profession_result.append(profession)
-        profession_result.append(vacancies)
-        profession_result.append(suitable_vacancies)
-        profession_result.append(average_wages)
+        profession_result = [
+            profession,
+            vacancies,
+            suitable_vacancies,
+            average_wages
+        ]
         overall_result.append(profession_result)
-        profession_result = []
     print()
     show_table(title, overall_result)
 
