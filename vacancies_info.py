@@ -19,7 +19,9 @@ def main():
                    'Scala',
                    'Swift'
                    ]
+    print()
     get_superjob_vacancies(superjob_api_key, professions)
+    print()
     get_headhunter_vacancies(professions)
 
 
@@ -98,7 +100,6 @@ def get_headhunter_vacancies(professions):
             average_wages
         ]
         overall_result.append(profession_result)
-    print()
     show_table(title, overall_result)
     return None
 
@@ -139,7 +140,6 @@ def get_superjob_vacancies(api_key, professions):
             average_wages
         ]
         overall_result.append(profession_result)
-    print()
     show_table(title, overall_result)
 
 
