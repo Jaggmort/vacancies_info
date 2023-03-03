@@ -90,13 +90,13 @@ def get_headhunter_vacancies(professions):
                     suitable_vacancies += 1
                     wages_sum += predict_salary
         try:
-            wages_average = int(wages_sum/suitable_vacancies)
+            average_wages = int(wages_sum/suitable_vacancies)
         except ZeroDivisionError:
-            wages_average = None
+            average_wages = None
         profession_result.append(profession)
         profession_result.append(page_payload['found'])
         profession_result.append(suitable_vacancies)
-        profession_result.append(wages_average)
+        profession_result.append(average_wages)
         overall_result.append(profession_result)
         profession_result = []
     print()
@@ -131,13 +131,13 @@ def get_superjob_vacancies(api_key, professions):
                     suitable_vacancies += 1
                     wages_sum += predict_salary
         try:
-            wages_average = int(wages_sum/suitable_vacancies)
+            average_wages = int(wages_sum/suitable_vacancies)
         except ZeroDivisionError:
-            wages_average = None
+            average_wages = None
         profession_result.append(profession)
         profession_result.append(vacancies)
         profession_result.append(suitable_vacancies)
-        profession_result.append(wages_average)
+        profession_result.append(average_wages)
         overall_result.append(profession_result)
         profession_result = []
     print()
