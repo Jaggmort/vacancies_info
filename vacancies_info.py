@@ -146,5 +146,7 @@ def superjob_vacancies_info():
 
 
 if __name__ == '__main__':
+    print()
     superjob_vacancies_info()
+    print()
     headhunter_vacancies_info()
