@@ -1,5 +1,15 @@
+import os
 import requests
+from dotenv import load_dotenv
 from terminaltables import AsciiTable
+
+
+
+def main():
+    load_dotenv()
+    superjob_api_key = os.environ.get('SUPERJOB_KEY')
+    superjob_vacancies_info(superjob_api_key)
+    headhunter_vacancies_info()
 
 
 def predict_rur_salary(salary):
@@ -94,14 +104,15 @@ def headhunter_vacancies_info():
         profession_info.append(wages_average)
         full_info.append(profession_info)
         profession_info = []
+    print()
     show_table(title, full_info)
     return None
 
 
-def superjob_vacancies_info():
+def superjob_vacancies_info(api_key):
     title = 'SuperJob Moscow'
     url = 'https://api.superjob.ru/2.0/vacancies'
-    headers = {'X-Api-App-Id': 'v3.r.137397509.4016b29888ab574f2cb1f31d74e0ddb333fade59.4c5446fd495394f76992b88010cc84cbc0cdc91e'}
+    headers = {'X-Api-App-Id': api_key}
     professions = ['JavaScript',
                    'Java',
                    'Python',
@@ -144,11 +155,9 @@ def superjob_vacancies_info():
         profession_info.append(wages_average)
         full_info.append(profession_info)
         profession_info = []
+    print()
     show_table(title, full_info)
 
 
 if __name__ == '__main__':
-    print()
-    superjob_vacancies_info()
-    print()
-    headhunter_vacancies_info()
+    main()
