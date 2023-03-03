@@ -1,6 +1,6 @@
 # Vacancies_info # 
 
-Module show vacancies from headhunter.ru and superjob.ru in Moscow.
+Module show vacancies from [headhunter.ru](https://hh.ru/) and [superjob.ru](https://superjob.ru/) in Moscow.
 
 ### How to use ###
 
