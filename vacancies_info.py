@@ -36,8 +36,6 @@ def predict_rur_salary(salary):
             else:
                 if salary['to']:
                     wage = int(salary['to']*0.8)
-                else:
-                    wage = None
     return wage
 
 
@@ -53,8 +51,6 @@ def predict_rub_salary(salary):
             else:
                 if salary['payment_to']:
                     wage = int(salary['payment_to']*0.8)
-                else:
-                    wage = None
     return wage
 
 
