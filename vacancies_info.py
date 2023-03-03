@@ -8,8 +8,8 @@ from terminaltables import AsciiTable
 def main():
     load_dotenv()
     superjob_api_key = os.environ.get('SUPERJOB_KEY')
-    superjob_vacancies_info(superjob_api_key)
-    headhunter_vacancies_info()
+    get_superjob_vacancies(superjob_api_key)
+    get_headhunter_vacancies()
 
 
 def predict_rur_salary(salary):
@@ -61,7 +61,7 @@ def show_table(title, wages):
     return None
 
 
-def headhunter_vacancies_info():
+def get_headhunter_vacancies():
     title = 'HeadHunter Moscow'    
     url_all = 'https://api.hh.ru/vacancies'
     professions = ['JavaScript',
@@ -109,7 +109,7 @@ def headhunter_vacancies_info():
     return None
 
 
-def superjob_vacancies_info(api_key):
+def get_superjob_vacancies(api_key):
     title = 'SuperJob Moscow'
     url = 'https://api.superjob.ru/2.0/vacancies'
     headers = {'X-Api-App-Id': api_key}
