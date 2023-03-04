@@ -25,7 +25,6 @@ def main():
     superjob_vacancies = get_superjob_vacancies(superjob_api_key, professions)
     show_table(superjob_title, superjob_vacancies)
     print()
-    get_headhunter_vacancies(professions)
     headhunter_vacancies = get_superjob_vacancies(professions)
     show_table(headhunter_title, headhunter_vacancies)
 
