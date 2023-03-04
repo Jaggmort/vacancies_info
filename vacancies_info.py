@@ -25,20 +25,20 @@ def main():
     superjob_vacancies = get_superjob_vacancies(superjob_api_key, professions)
     show_table(superjob_title, superjob_vacancies)
     print()
-    headhunter_vacancies = get_superjob_vacancies(professions)
+    headhunter_vacancies = get_headhunter_vacancies(professions)
     show_table(headhunter_title, headhunter_vacancies)
 
 
 def calculate_wage(payment_from, payment_to):
     wage = None
-    if payment_from:
-        if payment_to:
-            wage = int(payment_from + payment_to)/2
-        else:
-            wage = int(payment_from*1.2)
-    else:
+    if (not payment_from):
         if payment_to:
             wage = int(payment_to*0.8)
+        return wage        
+    if payment_to:
+        wage = int(payment_from + payment_to)/2
+    else:
+        wage = int(payment_from*1.2)
     return wage
 
 
