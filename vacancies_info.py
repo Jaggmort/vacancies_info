@@ -47,7 +47,6 @@ def predict_salary(salary):
     if salary:
         if salary['currency'] == 'rub':
             wage = calculate_wage(salary['payment_from'], salary['payment_to'])
-    if salary:
         if salary['currency'] == 'RUR':
             wage = calculate_wage(salary['from'], salary['to'])
     return wage
