@@ -58,8 +58,9 @@ def show_table(title, wages):
               'Вакансий обработано',
               'Средняя зарплата'
               ]
-    wages.insert(0, header)
-    table_instance = AsciiTable(wages, title)
+    inner_wages = wages
+    inner_wages.insert(0, header)
+    table_instance = AsciiTable(inner_wages, title)
     table_instance.justify_columns[2] = 'right'
     print(table_instance.table)
     return None
