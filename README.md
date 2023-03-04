@@ -10,4 +10,4 @@ python vacancies_info.py
 
 ### Project goals ###
 
-The code is written for educational purposes on online-course for web-developers dvmn.org.
+The code is written for educational purposes on online-course for web-developers [dvmn.org](https://dvmn.org/).
