@@ -31,9 +31,8 @@ def main():
 
 def calculate_wage(payment_from, payment_to):
     wage = None
-    if (not payment_from):
-        if payment_to:
-            wage = int(payment_to*0.8)
+    if (not payment_from) and payment_to:
+        wage = int(payment_to*0.8)
         return wage        
     if payment_to:
         wage = int(payment_from + payment_to)/2
@@ -44,11 +43,10 @@ def calculate_wage(payment_from, payment_to):
 
 def predict_salary(salary):
     wage = None
-    if salary:
-        if salary['currency'] == 'rub':
-            wage = calculate_wage(salary['payment_from'], salary['payment_to'])
-        if salary['currency'] == 'RUR':
-            wage = calculate_wage(salary['from'], salary['to'])
+    if salary and salary['currency'] == 'rub':
+        wage = calculate_wage(salary['payment_from'], salary['payment_to'])
+    if salary and salary['currency'] == 'RUR':
+        wage = calculate_wage(salary['from'], salary['to'])
     return wage
 
 
